@@ -79,14 +79,15 @@ def run_pipeline(source: Path) -> Dict[str, object]:
     with_roi.to_sql("finance", con, if_exists="replace", index=False)
 
     table = pd.read_sql("SELECT * FROM finance", con)
+    print(time_now())
     print(table)
 
     # Analytics
     max_profit = greatest_profit(with_roi)
-    print(max_profit)
+    print(f"The state with the greatest profit is {max_profit}")
 
     max_roi = greatest_roi(with_roi)
-    print(max_roi)
+    print(f"The state with the greatest ROI is {max_roi}")
 
     return {
         "lineage": lineage,
