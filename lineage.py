@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import List, Dict
 from pathlib import Path
 import sqlite3
+import matplotlib.pyplot as plt
 
 
 
@@ -81,6 +82,9 @@ def run_pipeline(source: Path) -> Dict[str, object]:
     table = pd.read_sql("SELECT * FROM finance", con)
     print(time_now())
     print(table)
+
+    with_roi.plot(kind = "scatter", x ="Totals.Revenue", y = "Totals.Profit")
+    plt.savefig('scatter.png')
 
     # Analytics
     max_profit = greatest_profit(with_roi)
